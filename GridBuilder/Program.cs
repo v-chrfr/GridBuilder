@@ -40,6 +40,10 @@ namespace GridBuilder
         {
             int x = 0;
             int y = 0;
+            int x_var;
+            int y_var;
+            Color color;
+
             int move_len = bit_map_size - 2; // due to 2 pixel overlap
 
             if (face_id == 0)
@@ -68,19 +72,19 @@ namespace GridBuilder
             {
                 for (int j = 0; j < bit_map_size; j++)
                 {
-                    var color = tmp_image.GetPixel(i, j);
-                    int x_var = Math.Min(master_size-1, x + i);
-                    int y_var = Math.Min(master_size-1, y + j);
+                    color = tmp_image.GetPixel(i, j);
+                    x_var = Math.Min(master_size-1, x + i);
+                    y_var = Math.Min(master_size-1, y + j);
                     cube_image.SetPixel(x_var, y_var, color);
-
-                    Graphics g = Graphics.FromImage(cube_image);
-                    using (Font font1 = new Font("Times New Roman", 24, FontStyle.Bold, GraphicsUnit.Pixel))
-                    {
-                        PointF pointF1 = new PointF(x, y);
-                        g.DrawString($"{face_id}-{tile_id}", font1, Brushes.IndianRed, pointF1);
-                        g.Flush();
-                    }
                 }
+            }
+
+            Graphics g = Graphics.FromImage(cube_image);
+            using (Font font1 = new Font("Times New Roman", 24, FontStyle.Bold, GraphicsUnit.Pixel))
+            {
+                PointF pointF1 = new PointF(x, y);
+                g.DrawString($"{face_id}-{tile_id}", font1, Brushes.IndianRed, pointF1);
+                g.Flush();
             }
         }
 
